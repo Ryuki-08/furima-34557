@@ -11,7 +11,7 @@
 | first_name         | string  | null: false |
 | family_name_kana   | string  | null: false |
 | first_name_kana    | string  | null: false |
-| birthday           | integer | null: false |
+| birthday           | date    | null: false |
 
 ### Association
 
@@ -35,7 +35,7 @@
 ### Association
 
 - belongs_to :user
-- belongs_to :buy
+- has_one :buy
 
 ## buysテーブル
 
@@ -57,6 +57,7 @@
 | postal_code    | string     | null: false                    |
 | prefectures_id | integer    | null: false                    |
 | municipality   | string     | null: false                    |
+| building_name  | string     |                                |
 | house_number   | string     | null: false                    |
 | phone_number   | string     | null: false                    |
 | buy            | references | null: false, foreign_key: true |
