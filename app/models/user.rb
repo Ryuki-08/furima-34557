@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :items
+  has_many :buys
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
