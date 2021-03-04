@@ -15,19 +15,19 @@ class Item < ApplicationRecord
     validates :price
   end
 
-  with_options format: { with: /\A[0-9]+\z/} do
+  with_options format: { with: /\A[0-9]+\z/ } do
     validates :price
   end
-  with_options numericality: { only_integer: true, greater_than: 300, less_than: 10000000} do
+  with_options numericality: { only_integer: true, greater_than: 300, less_than: 10_000_000 } do
     validates :price
   end
-
-  validates :category_id, numericality: { other_than: 1 }
-  validates :product_condition_id, numericality: { other_than: 1 }
-  validates :shipping_charges_id, numericality: { other_than: 1 }
-  validates :prefectures_id, numericality: { other_than: 1 }
-  validates :days_to_ship_id, numericality: { other_than: 1 }
-
+  with_options numericality: { other_than: 1 } do
+    validates :category_id
+    validates :product_condition_id
+    validates :shipping_charges_id
+    validates :prefectures_id
+    validates :days_to_ship_id
+  end
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
   belongs_to :condition
