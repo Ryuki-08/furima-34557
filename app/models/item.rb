@@ -30,8 +30,8 @@ class Item < ApplicationRecord
   end
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
-  belongs_to :condition
-  belongs_to :shipping
+  belongs_to :product_condition
+  belongs_to :shipping_charges
   belongs_to :prefectures
   belongs_to :days_to_ship
 end
