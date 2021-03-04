@@ -82,6 +82,31 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('Name description is too long (maximum is 1000 characters)')
       end
+      it 'category_idが未選択の時出品できないこと' do
+        @item.category_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
+      end
+      it 'product_condition_idが未選択の時出品できないこと' do
+        @item.product_condition_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Product condition must be other than 1")
+      end
+      it 'shipping_charges_idが未選択の時出品できないこと' do
+        @item.shipping_charges_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping charges must be other than 1")
+      end
+      it 'prefectures_idが未選択の時出品できないこと' do
+        @item.prefectures_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefectures must be other than 1")
+      end
+      it 'days_to_ship_idが未選択の時出品できないこと' do
+        @item.days_to_ship_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Days to ship must be other than 1")
+      end
     end
   end
 end
