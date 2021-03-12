@@ -1,5 +1,6 @@
 class BuysController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!, only: :index
+  before_action :move_index, only: :index
 
   def index
     @buys = BuyAddress.new
@@ -32,6 +33,13 @@ class BuysController < ApplicationController
       card: buy_address_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def move_index
+    @item = Item.find(params[:item_id])
+    if current_user.id == @item.user.id || @item.buy != nil
+      redirect_to root_path
+    end
   end
 
 
