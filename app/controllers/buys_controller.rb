@@ -22,12 +22,14 @@ class BuysController < ApplicationController
   private
 
   def buy_address_params
-    params.require(:buy_address).permit(:postal_code, :prefectures_id, :municipality, :building_name, :house_number, :phone_number,).merge(item_id: params[:item_id], token: params[:token], user_id: current_user.id)
+    params.require(:buy_address).permit(:postal_code, :prefectures_id, :municipality, :building_name, :house_number, :phone_number).merge(
+      item_id: params[:item_id], token: params[:token], user_id: current_user.id
+    )
   end
 
   def pay_item
     @item = Item.find(params[:item_id])
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,
       card: buy_address_params[:token],
@@ -37,10 +39,6 @@ class BuysController < ApplicationController
 
   def move_index
     @item = Item.find(params[:item_id])
-    if current_user.id == @item.user.id || @item.buy != nil
-      redirect_to root_path
-    end
+    redirect_to root_path if current_user.id == @item.user.id || !@item.buy.nil?
   end
-
-
 end

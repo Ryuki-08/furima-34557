@@ -19,7 +19,8 @@ RSpec.describe BuyAddress, type: :model do
       it 'postal_codeが空だと保存ができない' do
         @buy_address.postal_code = ''
         @buy_address.valid?
-        expect(@buy_address.errors.full_messages).to include("Postal code can't be blank", "Postal code is invalid. Include hyphen(-)")
+        expect(@buy_address.errors.full_messages).to include("Postal code can't be blank",
+                                                             'Postal code is invalid. Include hyphen(-)')
       end
       it 'prefectures_idが空だと保存できない' do
         @buy_address.prefectures_id = ''
@@ -39,20 +40,18 @@ RSpec.describe BuyAddress, type: :model do
       it 'phone_numberが空だと保存できない' do
         @buy_address.phone_number = ''
         @buy_address.valid?
-        expect(@buy_address.errors.full_messages).to include("Phone number can't be blank", "Phone number is invalid")
+        expect(@buy_address.errors.full_messages).to include("Phone number can't be blank", 'Phone number is invalid')
       end
       it 'postal_codeにハイフンがないと保存できない事' do
         @buy_address.postal_code = '1234567'
         @buy_address.valid?
-        expect(@buy_address.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
+        expect(@buy_address.errors.full_messages).to include('Postal code is invalid. Include hyphen(-)')
       end
       it 'phone_numberは12桁以上の数値では保存できないこと' do
         @buy_address.phone_number = '080123456789'
         @buy_address.valid?
-        binding.pry
-        expect(@buy_address.errors.full_messages).to include("Phone number is invalid")
+        expect(@buy_address.errors.full_messages).to include('Phone number is invalid')
       end
-
     end
-  end  
+  end
 end
