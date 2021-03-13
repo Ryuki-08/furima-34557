@@ -1,7 +1,7 @@
 class BuysController < ApplicationController
-  before_action :authenticate_user!, only: :index
-  before_action :move_index, only: :index
-  before_action :set_buy, only: [:index, :pay_item, :move_index]
+  before_action :authenticate_user!, only: [:index, :create]
+  before_action :set_buy, only: [:index, :create]
+  before_action :move_index, only: [:index, :create]
 
   def index
     @buys = BuyAddress.new
@@ -14,7 +14,6 @@ class BuysController < ApplicationController
       @buys.save
       redirect_to root_path
     else
-      @item = Item.find(params[:item_id])
       render :index
     end
   end
