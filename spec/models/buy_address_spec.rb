@@ -2,11 +2,18 @@ require 'rails_helper'
 
 RSpec.describe BuyAddress, type: :model do
   before do
-    @buy_address = FactoryBot.build(:buy_address)
+    @user = FactoryBot.create(:user)
+    @item = FactoryBot.create(:item)
+    @buy_address = FactoryBot.build(:buy_address, user_id: @user.id, item_id: @item.id)
+    sleep 0.1
   end
   describe '住所の保存' do
     context '住所が保存できる場合' do
       it '全ての値が入力できていれば保存できること' do
+        expect(@buy_address).to be_valid
+      end
+      it 'building_nameが空でも購入できること' do
+        @buy_address.building_name = ''
         expect(@buy_address).to be_valid
       end
     end
@@ -51,6 +58,21 @@ RSpec.describe BuyAddress, type: :model do
         @buy_address.phone_number = '080123456789'
         @buy_address.valid?
         expect(@buy_address.errors.full_messages).to include('Phone number is invalid')
+      end
+      it 'prefectures_idが1だと保存できない' do
+        @buy_address.prefectures_id = '1'
+        @buy_address.valid?
+        expect(@buy_address.errors.full_messages).to include("Prefectures can't be blank")
+      end
+      it 'user_idが空の場合は保存できない' do
+        @buy_address.user_id = ''
+        @buy_address.valid?
+        expect(@buy_address.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空の場合は保存できない' do
+        @buy_address.item_id = ''
+        @buy_address.valid?
+        expect(@buy_address.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
