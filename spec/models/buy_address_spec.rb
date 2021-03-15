@@ -60,7 +60,7 @@ RSpec.describe BuyAddress, type: :model do
         expect(@buy_address.errors.full_messages).to include('Phone number is invalid')
       end
       it 'prefectures_idが1だと保存できない' do
-        @buy_address.prefectures_id = '1'
+        @buy_address.prefectures_id = 1
         @buy_address.valid?
         expect(@buy_address.errors.full_messages).to include("Prefectures can't be blank")
       end
